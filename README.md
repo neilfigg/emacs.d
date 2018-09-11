@@ -1,10 +1,7 @@
-## Bozhidar's Emacs config
+## Emacs config
 
-This repo contains my personal Emacs configuration. I don't advise
-people to use it directly and I won't be accepting pull requests
-(after all that's my config, right?).
+This repo contains my Emacs configuration for Clojure development. 
 
-I'm putting it here mostly as a source of inspiration. :-)
+It is a fork of [Bozhidar's Emacs config](https://github.com/bbatsov/emacs.d) project, with some additional config in the custom.el.
 
-If you're looking for a nice (and way better structured) setup, check out
-my [Prelude](https://github.com/bbatsov/prelude) project.
+Tested with GNU Emacs 26.1 (build 1, x86_64-pc-linux-gnu, GTK+ Version 2.24.32) of 2018-06-29.
