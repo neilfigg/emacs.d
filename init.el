@@ -214,7 +214,7 @@ Start `ielm' if it's not already running."
   :init
   (setq projectile-completion-system 'ivy)
   :config
-  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (projectile-mode +1))
 
 (use-package pt
@@ -446,6 +446,8 @@ Start `ielm' if it's not already running."
 (use-package super-save
   :ensure t
   :config
+  ;; add integration with ace-window
+  (add-to-list 'super-save-triggers 'ace-window)
   (super-save-mode +1))
 
 (use-package crux
@@ -497,11 +499,20 @@ Start `ielm' if it's not already running."
         `((".*" . ,temporary-file-directory)))
   (setq undo-tree-auto-save-history t))
 
+;; needed to tweak the matching algorithm used by ivy
+(use-package flx
+  :ensure t)
+
 (use-package ivy
   :ensure t
   :config
   (ivy-mode 1)
   (setq ivy-use-virtual-buffers t)
+  ;; use flx matching instead of the default
+  ;; see https://oremacs.com/2016/01/06/ivy-flx/ for details
+  (setq ivy-re-builders-alist
+        '((t . ivy--regex-fuzzy)))
+  (setq ivy-initial-inputs-alist nil)
   (setq enable-recursive-minibuffers t)
   (global-set-key (kbd "C-c C-r") 'ivy-resume)
   (global-set-key (kbd "<f6>") 'ivy-resume))
@@ -563,3 +574,4 @@ Start `ielm' if it's not already running."
   (load custom-file))
 
 ;;; init.el ends here
+
