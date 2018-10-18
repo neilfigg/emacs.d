@@ -259,7 +259,6 @@ Start `ielm' if it's not already running."
   (setq uniquify-ignore-buffers-re "^\\*"))
 
 ;; saveplace remembers your location in a file when saving files
-(require 'saveplace)
 (use-package saveplace
   :config
   (setq save-place-file (expand-file-name "saveplace" bozhidar-savefile-dir))
@@ -375,6 +374,9 @@ Start `ielm' if it's not already running."
   (add-hook 'cider-repl-mode-hook #'paredit-mode)
   (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode))
 
+(use-package flycheck-joker
+  :ensure t)
+
 (use-package elixir-mode
   :ensure t
   :config
@@ -389,11 +391,14 @@ Start `ielm' if it's not already running."
 
 (use-package markdown-mode
   :ensure t
+  :mode (("\\.md\\'" . gfm-mode)
+         ("\\.markdown\\'" . gfm-mode))
   :config
-  ;; TODO: Remove after https://github.com/jrblevin/markdown-mode/pull/335/files is merged
-  (cl-delete-if (lambda (element) (equal (cdr element) 'markdown-mode)) auto-mode-alist)
-  (add-to-list 'auto-mode-alist '("\\.md\\'" . gfm-mode))
-  (add-to-list 'auto-mode-alist '("\\.markdown\\'" . gfm-mode)))
+  (setq markdown-fontify-code-blocks-natively t))
+
+(use-package adoc-mode
+  :ensure t
+  :mode "\\.adoc\\'")
 
 (use-package yaml-mode
   :ensure t)
@@ -417,6 +422,7 @@ Start `ielm' if it's not already running."
 (use-package hl-todo
   :ensure t
   :config
+  (setq hl-todo-highlight-punctuation ":")
   (global-hl-todo-mode))
 
 (use-package zop-to-char
