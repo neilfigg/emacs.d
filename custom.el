@@ -1,9 +1,18 @@
+
 (setq cider-default-cljs-repl 'figwheel-main)
 
 (global-linum-mode)
 
 (add-hook 'clojure-mode-hook #'paredit-mode)
 
+(use-package projectile
+  :ensure t
+  :init
+  (setq projectile-completion-system 'ivy)
+  :config
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+  (projectile-mode +1))
+  
 (use-package clj-refactor
   :ensure t)
 
